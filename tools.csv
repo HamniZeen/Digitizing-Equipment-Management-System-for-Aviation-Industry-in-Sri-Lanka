@@ -1,0 +1,22 @@
+ID,Tool_Name,Location,Status
+1,Hammer,Store,Available
+2,Drill,Drawer,Not Available
+3,Jaw pilers,Garage,Available
+4,Safety glasses / Goggles,Tool Box,Available
+5,Gloves,Store,Available
+6,Ear protectors,Tool Box,Available
+7,Screw drivers,Drawer,Available
+8,Hacksaw,Tool Box,Not Available
+9,Wire strippers ,Store,Available
+10,Wrench,Garage,Available
+11,Socket sets,Garage,Not Available
+12,Extensions,Store,Available
+13, Piler-type cutting tools,Drawer,Not Available
+14,Metal cutting tools,Store,Not Available
+15,Chisel,Tool Box,Available
+16,File,Tool Box,Available
+17,Vise,Drawer,Available
+18,Ratchets/ Sockets,Drawer,Available
+19,Torque wrench,Store,Available
+20,Inspection mirror,Store,Not Available
+23,Shifter,Tool Box,Available
