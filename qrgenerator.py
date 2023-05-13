@@ -1,111 +1,135 @@
-import tkinter as tk
+from tkinter import *
 import pyqrcode
 import csv
 
 
+root = Tk()
+root.geometry("1350x900")
+root.title("Tool and Employee QR Generator")
 
-class ToolEmployeeGUI:
-    def __init__(self, master):
-        self.master = master
-        master.title("Tool and Employee QR Generator")
 
-        # Create tool labels and entry fields
-        self.tool_id_label = tk.Label(master, text="Tool ID:")
-        self.tool_id_label.grid(row=0, column=0)
-        self.tool_id_entry = tk.Entry(master)
-        self.tool_id_entry.grid(row=0, column=1)
+# create a canvas and load the background image
+canvas = Canvas(root, width=1350, height=900)
+bg_image = PhotoImage(file="image.png")
+canvas.create_image(0, 0, anchor=NW, image=bg_image)
+canvas.grid(row=0, column=0)
 
-        self.tool_name_label = tk.Label(master, text="Tool Name:")
-        self.tool_name_label.grid(row=1, column=0)
-        self.tool_name_entry = tk.Entry(master)
-        self.tool_name_entry.grid(row=1, column=1)
+# create a frame to hold the labels and entries
+frame = Frame(root)
+frame.place(relx=0.5, rely=0.5, anchor="center")
 
-        self.location_label = tk.Label(master, text="Location:")
-        self.location_label.grid(row=2, column=0)
-        self.location_entry = tk.Entry(master)
-        self.location_entry.grid(row=2, column=1)
+# font
+font_style = ("TkDefaultFont", 13, "bold")
+button_width = 15
+button_width2 = 20
+button_height = 2
+button_width1 = 25
 
-        # Create tool and employee QR code buttons
-        self.tool_qr_button = tk.Button(master, text="Generate Tool QR Code", command=self.generate_tool_qr)
-        self.tool_qr_button.grid(row=3, column=1)
 
-        self.employee_id_label = tk.Label(master, text="Employee ID:")
-        self.employee_id_label.grid(row=4, column=0)
-        self.employee_id_entry = tk.Entry(master)
-        self.employee_id_entry.grid(row=4, column=1)
 
-        self.employee_name_label = tk.Label(master, text="Employee Name:")
-        self.employee_name_label.grid(row=5, column=0)
-        self.employee_name_entry = tk.Entry(master)
-        self.employee_name_entry.grid(row=5, column=1)
+def generate_tool_qr():
+# Get tool ID from entry field
+    tool_id = tool_id_entry.get()
+    tool_name = tool_name_entry.get()
 
-        self.employee_email_label = tk.Label(master, text="Employee Email:")
-        self.employee_email_label.grid(row=6, column=0)
-        self.employee_email_entry = tk.Entry(master)
-        self.employee_email_entry.grid(row=6, column=1)
+# Generate QR code for tool
+    tool_qr = pyqrcode.create(f"{tool_id},{tool_name}")
+    tool_qr.png(f"{tool_id}-{tool_name}.png", scale=6)
 
-        self.employee_qr_button = tk.Button(master, text="Generate Employee QR Code", command=self.generate_employee_qr)
-        self.employee_qr_button.grid(row=7, column=1)
+def generate_employee_qr():
+# Get employee ID from entry field
+    employee_id = employee_id_entry.get()
+    employee_name = employee_name_entry.get()
+    employee_email = employee_email_entry.get()
 
-        # Create tool and employee submit buttons
-        self.tool_submit_button = tk.Button(master, text="Submit Tool", command=self.submit_tool)
-        self.tool_submit_button.grid(row=8, column=0)
+# Generate QR code for employee
+    employee_qr = pyqrcode.create(f"{employee_id},{employee_name},{employee_email}")
+    employee_qr.png(f"{employee_id}-{employee_name}.png", scale=6)
+def submit_tool():
+# Get tool information from entry fields
+    tool_id = tool_id_entry.get()
+    tool_name = tool_name_entry.get()
+    location = location_entry.get()
+    status = "Available"
 
-        self.employee_submit_button = tk.Button(master, text="Submit Employee", command=self.submit_employee)
-        self.employee_submit_button.grid(row=8, column=1)
+# Save tool information in CSV file
+    with open("tools.csv", "a", newline="") as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow([tool_id, tool_name, location, status])
 
-    def generate_tool_qr(self):
-        # Get tool ID from entry field
-        tool_id = self.tool_id_entry.get()
-        tool_name = self.tool_name_entry.get()
+# Clear entry fields
+    tool_id_entry.delete(0, END)
+    tool_name_entry.delete(0, END)
+    location_entry.delete(0, END)
 
-        # Generate QR code for tool
-        tool_qr = pyqrcode.create(f"{tool_id},{tool_name}")
-        tool_qr.png(f"{tool_id}-{tool_name}.png", scale=6)
+def submit_employee():
+# Get employee information from entry fields
+    employee_name = employee_name_entry.get()
+    employee_id = employee_id_entry.get()
+    employee_email=employee_email_entry.get()
 
-    def generate_employee_qr(self):
-        # Get employee ID from entry field
-        employee_id = self.employee_id_entry.get()
-        employee_name = self.employee_name_entry.get()
-        employee_email = self.employee_email_entry.get()
+    with open("employees.csv", "a", newline="") as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow([employee_id, employee_name, employee_email])
 
-        # Generate QR code for employee
-        employee_qr = pyqrcode.create(f"{employee_id},{employee_name},{employee_email}")
-        employee_qr.png(f"{employee_id}-{employee_name}.png", scale=6)
-
-    def submit_tool(self):
-        # Get tool information from entry fields
-        tool_id = self.tool_id_entry.get()
-        tool_name = self.tool_name_entry.get()
-        location = self.location_entry.get()
-        status = "Available"
-
-        # Save tool information in CSV file
-        with open("tools.csv", "a", newline="") as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerow([tool_id, tool_name, location, status])
-
-        # Clear entry fields
-        self.tool_id_entry.delete(0, tk.END)
-        self.tool_name_entry.delete(0, tk.END)
-        self.location_entry.delete(0, tk.END)
-
-    def submit_employee(self):
-        # Get employee information from entry fields
-        employee_name = self.employee_name_entry.get()
-        employee_id = self.employee_id_entry.get()
-        employee_email=self.employee_email_entry.get()
-
-        with open("employees.csv", "a", newline="") as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerow([employee_id, employee_name, employee_email])
-
-        # Clear entry fields
-        self.employee_id_entry.delete(0, tk.END)
-        self.employee_name_entry.delete(0, tk.END)
-        self.employee_email_entry.delete(0,tk.END)
+# Clear entry fields
+    employee_id_entry.delete(0, END)
+    employee_name_entry.delete(0, END)
+    employee_email_entry.delete(0,END)
       
 
-root = tk.Tk()
-app = ToolEmployeeGUI(root)
+
+# Create tool labels and entry fields
+tool_id_label = Label(frame, text="Tool ID:", font=font_style)
+tool_id_label.grid(row=0, column=0,padx=5, pady=5)
+tool_id_entry = Entry(frame)
+tool_id_entry.configure(width=40)
+tool_id_entry.grid(row=0, column=1,padx=5, pady=5)
+
+tool_name_label = Label(frame, text="Tool Name:", font=font_style)
+tool_name_label.grid(row=1, column=0)
+tool_name_entry = Entry(frame)
+tool_name_entry.configure(width=40)
+tool_name_entry.grid(row=1, column=1,padx=5, pady=5)
+
+location_label = Label(frame, text="Location:", font=font_style)
+location_label.grid(row=2, column=0,padx=5, pady=5)
+location_entry = Entry(frame)
+location_entry.configure(width=40)
+location_entry.grid(row=2, column=1,padx=5, pady=5)
+
+# Create tool and employee QR code buttons
+tool_qr_button = Button(frame, text="Generate Tool QR Code", command=generate_tool_qr, font=font_style, width=button_width1, height=button_height, bd=2)
+tool_qr_button.grid(row=3, column=1, columnspan=2,padx=5, pady=5)
+
+employee_id_label = Label(frame, text="Employee ID:", font=font_style)
+employee_id_label.grid(row=4, column=0,padx=5, pady=5)
+employee_id_entry = Entry(frame)
+employee_id_entry.configure(width=40)
+employee_id_entry.grid(row=4, column=1,padx=5, pady=5)
+
+employee_name_label = Label(frame, text="Employee Name:", font=font_style)
+employee_name_label.grid(row=5, column=0,padx=5, pady=5)
+employee_name_entry = Entry(frame)
+employee_name_entry.configure(width=40)
+employee_name_entry.grid(row=5, column=1,padx=5, pady=5)
+
+employee_email_label = Label(frame, text="Employee Email:", font=font_style)
+employee_email_label.grid(row=6, column=0,padx=5, pady=5)
+employee_email_entry = Entry(frame)
+employee_email_entry.configure(width=40)
+employee_email_entry.grid(row=6, column=1,padx=5, pady=5)
+
+employee_qr_button = Button(frame, text="Generate Employee QR Code", command=generate_employee_qr, font=font_style, width=button_width1, height=button_height, bd=2)
+employee_qr_button.grid(row=7, column=1, columnspan=2,padx=5, pady=5)
+
+# Create tool and employee submit buttons
+tool_submit_button = Button(frame, text="Submit Tool", command=submit_tool, font=font_style, width=button_width2, height=button_height, bd=2)
+tool_submit_button.grid(row=8, column=0, padx=5, pady=5)
+
+employee_submit_button = Button(frame, text="Submit Employee", command=submit_employee, font=font_style, width=button_width2, height=button_height, bd=2)
+employee_submit_button.grid(row=8, column=1, padx=5, pady=5)
+
+
+
 root.mainloop()

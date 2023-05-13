@@ -101,25 +101,24 @@ def submitcommand():
     statuschangedcommand()
 
 root = tk.Tk()
-root.title("Check-In ")
+root.title("Check-out ")
+root.geometry("1350x900")
 
 image=tk.PhotoImage(file="image.png")
 canvas=tk.Canvas(root,width=image.width(), height=image.height())
-canvas.place(x=0,y=0)
+canvas.place(relx=0.5, rely=0.5, anchor="center")
 
 canvas.create_image(0,0,image=image, anchor="nw")
+button_width = 50
+button_height = 3
+button_font = ("TkDefaultFont", 13, "bold")
 
-button1=tk.Button(root,text="Scan Tool QR", command=open_scanner)
-button1.place(x=200,y=200)
 
-button2=tk.Button(root,text="Submit",command=submitcommand)
-button2.place(x=300,y=300)
+button1=tk.Button(root,text="Scan Tool QR", command=open_scanner,width=button_width, height=button_height, font=button_font)
+button1.place(relx=0.5, rely=0.45, anchor="center")
 
-button1.grid(row=2 ,column=1,padx=150, pady=10,sticky="nsew")
-button2.grid(row=3 ,column=1,padx=150, pady=10,sticky="nsew")
-
-button1.grid_anchor("center")
-button2.grid_anchor("center")
+button2=tk.Button(root,text="Submit",command=submitcommand, width=button_width, height=button_height, font=button_font)
+button2.place(relx=0.5, rely=0.6, anchor="center")
 
 
 root.mainloop()
