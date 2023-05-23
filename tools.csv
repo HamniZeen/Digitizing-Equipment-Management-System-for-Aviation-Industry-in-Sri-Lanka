@@ -1,10 +1,10 @@
 ID,Tool_Name,Location,Status
-1,Hammer,Store,Available
+1,Hammer,Store,Not Available
 2,Drill,Drawer,Not Available
 3,Jaw pilers,Garage,Available
 4,Safety glasses / Goggles,Tool Box,Available
 5,Gloves,Store,Available
-6,Ear protectors,Tool Box,Available
+6,Ear protectors,Tool Box,Not Available
 7,Screw drivers,Drawer,Available
 8,Hacksaw,Tool Box,Not Available
 9,Wire strippers ,Store,Available
@@ -22,3 +22,5 @@ ID,Tool_Name,Location,Status
 23,Shifter,Tool Box,Available
 24,Grudge Pair,Garage,Available
 31,ZigZag,Drawer,Available
+78,Wires,Drawer,Available
+56,Mirror glass,Stock5,Available

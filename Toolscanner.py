@@ -5,7 +5,7 @@ import numpy as np
 import csv
 import datetime
 import subprocess
-
+from PIL import Image, ImageTk
 
 def decode_qr(image, writer):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -79,7 +79,6 @@ def combinecommand():
     subprocess.Popen(["python","combine.py"])
 
 
-
 def statuschangecommand():
     subprocess.Popen(["python","ToolStatusChange.py"])
 
@@ -95,25 +94,29 @@ def run_nodejs_file():
 def exitt():
     run_nodejs_file()
     root.destroy()
+
 root = tk.Tk()
 root.title("Check-out ")
 root.geometry("1350x900")
 
+# Load and resize the image
+image = Image.open("plane.jpg")
+image = image.resize((1350, 900), Image.LANCZOS)
+photo = ImageTk.PhotoImage(image)
 
-image=tk.PhotoImage(file="image.png")
-canvas=tk.Canvas(root,width=image.width(), height=image.height())
+canvas = tk.Canvas(root, width=1350, height=900)
+canvas.create_image(0, 0, anchor="nw", image=photo)
 canvas.place(relx=0.5, rely=0.5, anchor="center")
 
-canvas.create_image(0,0,image=image, anchor="nw")
 button_width = 50
 button_height = 3
 button_font = ("TkDefaultFont", 13, "bold")
 
-button1=tk.Button(root,text="Scan Tool QR", command=open_scanner, width=button_width, height=button_height, font=button_font)
+button1 = tk.Button(root, text="Scan Tool QR", command=open_scanner, width=button_width, height=button_height, font=button_font)
 button1.place(relx=0.5, rely=0.4, anchor="center")
-button2=tk.Button(root,text="Submit",command=submitcommand, width=button_width, height=button_height, font=button_font)
+button2 = tk.Button(root, text="Submit", command=submitcommand, width=button_width, height=button_height, font=button_font)
 button2.place(relx=0.5, rely=0.5, anchor="center")
-button3=tk.Button(root,text="Exit",command=exitt, width=button_width, height=button_height, font=button_font)
+button3 = tk.Button(root, text="Exit", command=exitt, width=button_width, height=button_height, font=button_font)
 button3.place(relx=0.5, rely=0.6, anchor="center")
 
 root.mainloop()

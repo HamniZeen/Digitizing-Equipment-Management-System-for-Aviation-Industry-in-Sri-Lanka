@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+from PIL import Image, ImageTk
 import subprocess
 
 def login():
@@ -10,7 +11,7 @@ def login():
         messagebox.showinfo("Login", "Login Successful")
         subprocess.call(['node', 'otpmail.js'])
         subprocess.Popen(["python", "verifyotp.py"])
-        root.destroy() 
+        root.destroy()
     else:
         messagebox.showerror("Login", "Check User Name and Password")
         uname_entry.delete(0, END)
@@ -20,15 +21,17 @@ root = Tk()
 root.title("Login")
 root.geometry("1350x900")
 
-canvas = Canvas(root, width=1350, height=900)
-bg_image = PhotoImage(file="image.png")
-canvas.create_image(0, 0, anchor=NW, image=bg_image)
-canvas.grid(row=0, column=0)
+# Load and resize the image
+image = Image.open("plane.jpg")
+image = image.resize((1350, 900), Image.LANCZOS)
+photo = ImageTk.PhotoImage(image)
 
+canvas = Canvas(root, width=1350, height=900)
+canvas.create_image(0, 0, anchor=NW, image=photo)
+canvas.grid(row=0, column=0)
 
 frame = Frame(root)
 frame.place(relx=0.5, rely=0.5, anchor="center")
-
 
 font_style = ("TkDefaultFont", 13, "bold")
 button_width = 15
