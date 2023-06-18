@@ -102,7 +102,7 @@ def submitcommand():
     statuschangedcommand()
 
 root = tk.Tk()
-root.title("Check-out ")
+root.title("Check-In ")
 root.geometry("1350x900")
 
 image = Image.open("plane.jpg")

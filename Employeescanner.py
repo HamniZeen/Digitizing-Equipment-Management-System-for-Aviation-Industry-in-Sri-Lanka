@@ -79,6 +79,7 @@ def clean_data():
 
 
 def nextcommand():
+    subprocess.call(['node', 'remindermail.js'])
     subprocess.Popen(["python","Toolscanner.py"])
 
 

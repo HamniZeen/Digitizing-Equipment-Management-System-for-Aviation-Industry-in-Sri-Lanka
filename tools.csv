@@ -1,5 +1,5 @@
 ID,Tool_Name,Location,Status
-1,Hammer,Store,Not Available
+1,Hammer,Store,Available
 2,Drill,Drawer,Not Available
 3,Jaw pilers,Garage,Available
 4,Safety glasses / Goggles,Tool Box,Available
@@ -11,7 +11,7 @@ ID,Tool_Name,Location,Status
 10,Wrench,Garage,Available
 11,Socket sets,Garage,Not Available
 12,Extensions,Store,Available
-13, Piler-type cutting tools,Drawer,Not Available
+13, Piler-type cutting tools,Drawer,Available
 14,Metal cutting tools,Store,Not Available
 15,Chisel,Tool Box,Available
 16,File,Tool Box,Available
@@ -24,3 +24,4 @@ ID,Tool_Name,Location,Status
 31,ZigZag,Drawer,Available
 78,Wires,Drawer,Available
 56,Mirror glass,Stock5,Available
+999,Plane Fan,Tool Case,Available
